@@ -1,7 +1,6 @@
 package com.jyt.bbs.dao;
 
-import com.jyt.bbs.model.Do.Permission;
-
+import com.jyt.bbs.model.entity.Permission;
 import java.util.List;
 
 public interface PermissionMapper {

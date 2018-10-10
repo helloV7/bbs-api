@@ -1,4 +1,4 @@
-package com.jyt.bbs.model.Do;
+package com.jyt.bbs.model.entity;
 
 import java.io.Serializable;
 

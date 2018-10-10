@@ -38,8 +38,9 @@ public class RedisSessionDao extends EnterpriseCacheSessionDAO {
         if (session == null || session.getId() == null) {
             return;
         }
+
+        System.out.println("update:"+session.getId());
         String key = getKey(session);
-        session.touch();
         redisTemplate.opsForValue().set(key, session, expireTime, timeUnit);
     }
 
@@ -74,7 +75,6 @@ public class RedisSessionDao extends EnterpriseCacheSessionDAO {
         System.out.println("===============doCreate================");
         Serializable sessionId = this.generateSessionId(session);
         this.assignSessionId(session, sessionId);
-        System.out.println("create " + getKey(session));
         redisTemplate.opsForValue().set(getKey(session), session, expireTime, timeUnit);
         return sessionId;
     }

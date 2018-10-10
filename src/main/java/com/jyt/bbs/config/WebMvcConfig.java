@@ -27,8 +27,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("/webjars/");
 
-//        registry.addResourceHandler("/druid/**")
-//                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/druid/**")
+                .addResourceLocations("classpath:/META-INF/resources/");
 
 
         registry.addResourceHandler("/static/**")

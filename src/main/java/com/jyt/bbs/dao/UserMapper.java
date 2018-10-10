@@ -1,8 +1,9 @@
 package com.jyt.bbs.dao;
 
-import com.jyt.bbs.model.Do.User;
+import com.jyt.bbs.model.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserMapper {
@@ -46,7 +47,7 @@ public interface UserMapper {
      */
     int updateByPrimaryKey(User record);
 
-    User selectByUserNameAndPasswordWord(@Param("username") String username, @Param("password") String password);
+    User getUserByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
-    List<String> selectUserPermission(@Param("userId") String userId);
+    ArrayList selectUserPermission(@Param("userId") String userId);
 }

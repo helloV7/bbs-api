@@ -47,7 +47,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage='com.example.demo.model.po' targetProject="${project}" >
+        <javaModelGenerator targetPackage='com.jyt.bbs.model.entity' targetProject="${project}" >
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>
@@ -59,7 +59,7 @@
         <!--    type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口-->
-        <javaClientGenerator targetPackage="com.example.demo.dao" targetProject="${project}" type="XMLMAPPER" >
+        <javaClientGenerator targetPackage="com.jyt.bbs.dao" targetProject="${project}" type="XMLMAPPER" >
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->

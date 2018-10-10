@@ -1,6 +1,10 @@
 package com.jyt.bbs.model.vo;
 
 public class R<D> {
+    public static int CODE_SUCCESS = 200;
+    public static int CODE_ERROR = 500;
+
+
 
     private int code;
     private String message;
@@ -35,10 +39,10 @@ public class R<D> {
 
     public static R ok(){
 
-        return new R();
+        return new R().setCode(CODE_SUCCESS);
     }
 
     public static R error(){
-        return new R();
+        return new R().setCode(CODE_ERROR);
     }
 }

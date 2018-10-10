@@ -1,7 +1,6 @@
 package com.jyt.bbs.dao;
 
-import com.jyt.bbs.model.Do.Role;
-
+import com.jyt.bbs.model.entity.Role;
 import java.util.List;
 
 public interface RoleMapper {

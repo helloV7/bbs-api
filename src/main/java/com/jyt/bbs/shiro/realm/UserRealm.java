@@ -2,7 +2,7 @@ package com.jyt.bbs.shiro.realm;
 
 
 import com.jyt.bbs.dao.UserMapper;
-import com.jyt.bbs.model.Do.User;
+import com.jyt.bbs.model.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
