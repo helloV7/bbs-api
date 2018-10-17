@@ -43,4 +43,7 @@ public interface AreaMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Area record);
+
+    List<Area> listArea(Integer id);
+
 }

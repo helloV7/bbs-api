@@ -1,5 +1,7 @@
 package com.jyt.bbs.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -7,34 +9,79 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
+@EnableWebMvc
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer{
+    @Value("${spring.servlet.multipart.location}")
+    String path;
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        File file = new File(path);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation(path);
+        return factory.createMultipartConfig();
+    }
+
+    /**
+     * 发现如果继承了WebMvcConfigurationSupport，则在yml中配置的相关内容会失效。 需要重新指定静态资源
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        //Swagger ui Mapping
-        registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("/webjars/");
-
-        registry.addResourceHandler("/druid/**")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
-
+        registry.addResourceHandler("/**").addResourceLocations(
+                "classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
+//        super.addResourceHandlers(registry);
     }
+
+
+    /**
+     * 配置servlet处理
+     */
+    @Override
+    public void configureDefaultServletHandling(
+            DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//
+//        //Swagger ui Mapping
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+////        registry.addResourceHandler("swagger-ui.html")
+////        .addResourceLocations("classpath:/META-INF/resources/");
+////
+////        registry.addResourceHandler("/webjars/**")
+////                .addResourceLocations("/webjars/");
+//
+//        registry.addResourceHandler("/druid/**")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//
+//
+//        registry.addResourceHandler("/static/**")
+//                .addResourceLocations("classpath:/static/");
+////        super.addResourceHandlers(registry);
+//    }
 
     @Bean
     public CorsFilter corsFilter() {
@@ -58,7 +105,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(new CommonInterceptor());
-        super.addInterceptors(registry);
+//        super.addInterceptors(registry);
     }
 
 

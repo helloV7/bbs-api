@@ -1,16 +1,20 @@
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bbs?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&useSSL=true&serverTimezone=GMT%2b8
-    username: root
-    password: root
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/bbs?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&useSSL=true&serverTimezone=GMT%2b8
+        username: root
+        password: root
+    servlet:
+        multipart:
+            location: /tmp/bbs/file
 
 server:
   port: 8989
 #contextPath
   servlet:
-    context-path: /
+    context-path: /bbs
+
 
 redis:
 # Redis数据库索引（默认为0）
@@ -38,5 +42,9 @@ redis:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+domain: http://127.0.0.1:8989/bbs
+
 
 

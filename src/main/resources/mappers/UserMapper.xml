@@ -90,12 +90,24 @@
   </select>
 
 
-    <select id="selectUserPermission" resultType="java.util.ArrayList">
+    <select id="selectUserPermission" resultType="java.lang.String">
        select permission_code from permission where id in ( select permission_id from role_permission  where role_id = ( select role_id from user_role where user_id = #{userId}))
     </select>
   <select id="getUserByUsernameAndPassword" resultType="com.jyt.bbs.model.entity.User">
-    SELECT id, `name`, `account`, `password`, salt
+    SELECT id,  `username`, `password`
       FROM user
-      WHERE `account` = #{username} AND `password` = #{password}
+      WHERE `username` = #{username} AND `password` = #{password}
   </select>
+    <select id="getUserByUsername" resultType="com.jyt.bbs.model.entity.User">
+      SELECT id  FROM user where username = #{username}
+    </select>
+
+  <update id="updateUserBaseInfo" parameterType="com.jyt.bbs.model.entity.User">
+      UPDATE user
+      SET
+      <if test="email!=null and email!=''">
+        email = #{email},
+      </if>
+      where id = #{id}
+  </update>
 </mapper>

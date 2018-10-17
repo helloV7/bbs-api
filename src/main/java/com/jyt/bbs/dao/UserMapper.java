@@ -49,5 +49,9 @@ public interface UserMapper {
 
     User getUserByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
-    ArrayList selectUserPermission(@Param("userId") String userId);
+    List<String> selectUserPermission(@Param("userId") String userId);
+
+    User getUserByUsername(@Param("username")String username);
+
+    int updateUserBaseInfo(User user);
 }

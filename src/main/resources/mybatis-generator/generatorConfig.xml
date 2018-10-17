@@ -47,7 +47,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage='com.jyt.bbs.model.entity' targetProject="${project}" >
+        <javaModelGenerator targetPackage='com.jyt.bbs.model.entity' targetProject="${project}">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>

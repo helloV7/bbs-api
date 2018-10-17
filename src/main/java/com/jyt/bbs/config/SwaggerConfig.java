@@ -19,7 +19,6 @@ import java.util.List;
 
 @Configuration //必须存在
 @EnableSwagger2 //必须存在
-@EnableWebMvc //必须存在
 public class SwaggerConfig {
     @Bean
 

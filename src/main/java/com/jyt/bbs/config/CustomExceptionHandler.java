@@ -6,6 +6,7 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,12 @@ public class CustomExceptionHandler {
         return R.error().setMessage(ex.getFieldError().getDefaultMessage());
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody R MethodArgumentNotValidException(MethodArgumentNotValidException e){
+
+        return R.error().setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
     @ExceptionHandler(value = Exception.class)
     public @ResponseBody
     R errorHandler(HttpServletRequest req, Exception ex) {
@@ -42,5 +49,7 @@ public class CustomExceptionHandler {
         return R.error().setMessage("请求路径有误");
 
     }
+
+
 
 }
