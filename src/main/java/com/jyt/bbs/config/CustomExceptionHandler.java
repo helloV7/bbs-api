@@ -18,10 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 @EnableWebMvc
 @ControllerAdvice
 public class CustomExceptionHandler {
-    @ExceptionHandler(value = {AuthorizationException.class,UnauthorizedException.class,UnauthenticatedException.class})
+    @ExceptionHandler(value = {AuthorizationException.class,UnauthorizedException.class})
     public @ResponseBody
     R noPermission(){
         return R.error().setMessage("无权访问");
+    }
+
+    //登陆失效
+    @ExceptionHandler(value =UnauthenticatedException.class )
+    public @ResponseBody R unauthenticatedException(){
+        return R.error().setMessage("未认证");
     }
 
     @ExceptionHandler(BindException.class)
@@ -29,6 +35,7 @@ public class CustomExceptionHandler {
     R bindException(BindException ex){
         return R.error().setMessage(ex.getFieldError().getDefaultMessage());
     }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody R MethodArgumentNotValidException(MethodArgumentNotValidException e){

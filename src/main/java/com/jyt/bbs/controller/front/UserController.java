@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "用户控制器")
+@Api(value = "用户控制器",tags = "用户")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,6 +31,8 @@ public class UserController {
     public R<User> login(@RequestBody @Validated LoginValidator loginParams ){
 
         User user = userService.login(loginParams.getUsername(),loginParams.getPassword());
+
+        user.setPassword(null);
 
         return R.ok().setData(user).setMessage("登陆成功");
     }

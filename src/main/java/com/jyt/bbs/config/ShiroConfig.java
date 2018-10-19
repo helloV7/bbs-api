@@ -1,10 +1,12 @@
 package com.jyt.bbs.config;
 
 
+import com.jyt.bbs.shiro.CollectionRedisSessionDao;
 import com.jyt.bbs.shiro.CustomizedModularRealmAuthenticator;
 import com.jyt.bbs.shiro.RedisSessionDao;
 import com.jyt.bbs.shiro.ShiroSessionManager;
 import com.jyt.bbs.shiro.realm.UserRealm;
+import com.jyt.bbs.shiro.session.ShiroSessionFactory;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -28,7 +30,7 @@ import java.util.Map;
 public class ShiroConfig {
 
     //session 过期时间
-    long timeout = 30 * 60 *1000;
+    long timeout = 30 * 60 *1000 *100;
 
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
@@ -76,12 +78,12 @@ public class ShiroConfig {
 
 
     @Bean
-    public SessionManager sessionManager(@Autowired RedisSessionDao redisSessionDao) {
+    public SessionManager sessionManager(@Autowired CollectionRedisSessionDao redisSessionDao) {
         redisSessionDao.setExpireTime(timeout);
 
         ShiroSessionManager mySessionManager = new ShiroSessionManager();
         mySessionManager.setSessionDAO(redisSessionDao);
-//        mySessionManager.setSessionFactory(new ShiroSessionFactory());
+        mySessionManager.setSessionFactory(new ShiroSessionFactory());
         mySessionManager.setDeleteInvalidSessions(true);
         mySessionManager.setGlobalSessionTimeout(timeout);
         return mySessionManager;

@@ -1,6 +1,12 @@
 package com.jyt.bbs.dao;
 
 import com.jyt.bbs.model.entity.Post;
+import com.jyt.bbs.model.vo.PostDetail;
+import com.jyt.bbs.model.vo.PostThumb;
+import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 import java.util.List;
 
 public interface PostMapper {
@@ -43,4 +49,10 @@ public interface PostMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Post record);
+
+    List<PostThumb> listPostByAreaIdOrderByDate(@Param("areaId") Integer areaId, @Param("date") Date date, @Param("keyword")String keyword);
+
+    PostDetail getPostDetail( @Param("postId")Integer postId);
+
+    List<PostThumb> listPostThumbByUserId(@Param("userId")Integer userId);
 }

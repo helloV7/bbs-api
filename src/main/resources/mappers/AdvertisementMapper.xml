@@ -64,4 +64,11 @@
     select id, image_url, jump_url, `state`, `name`, create_time
     from advertisement
   </select>
+  <select id="getAdvertisementRand" resultMap="BaseResultMap">
+    SELECT id , image_url
+    FROM advertisement
+    WHERE `state` = 1
+    AND id >= (SELECT round(max(id)*rand()) FROM advertisement)
+    LIMIT 1
+  </select>
 </mapper>

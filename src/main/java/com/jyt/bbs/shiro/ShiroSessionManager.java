@@ -29,7 +29,9 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
             if ("1".equals(id)){
                 try {
                     id = userMapper.selectByPrimaryKey(1).getToken();
-                }catch (Exception e){}
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
 

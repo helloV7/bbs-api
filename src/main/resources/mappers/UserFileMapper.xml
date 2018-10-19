@@ -62,4 +62,9 @@
     select id, user_id, post_id, score, create_time
     from user_file
   </select>
+    <select id="getUserFileByUserIdAndPostId" resultType="com.jyt.bbs.model.entity.UserFile">
+      SELECT id
+      FROM user_file
+      WHERE user_id = #{userId} AND post_id = #{postId}
+    </select>
 </mapper>

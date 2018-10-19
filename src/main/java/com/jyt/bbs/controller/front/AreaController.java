@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(value = "板块控制器")
+@Api(value = "板块控制器",tags = "板块")
 @RequestMapping(value = "/area")
 @RestController
 public class AreaController {

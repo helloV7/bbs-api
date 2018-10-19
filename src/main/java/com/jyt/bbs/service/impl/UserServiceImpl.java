@@ -5,17 +5,21 @@ import com.jyt.bbs.model.entity.User;
 import com.jyt.bbs.model.validator.UserRegisterValidator;
 import com.jyt.bbs.service.UserService;
 import com.jyt.bbs.shiro.RedisSessionDao;
+import com.jyt.bbs.shiro.token.CustomizedToken;
+import com.jyt.bbs.shiro.token.LoginType;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
 @Component
+@Transactional
 public class UserServiceImpl implements UserService{
     @Autowired
     UserMapper userMapper;
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService{
             redisSessionDao.delete(session);
         }
 
-        SecurityUtils.getSubject().login(new UsernamePasswordToken(user.getId()+"",user.getPassword()));
+        SecurityUtils.getSubject().login(new CustomizedToken(user.getId()+"",user.getPassword(), LoginType.USER));
         token = SecurityUtils.getSubject().getSession().getId().toString();
 
         user.setToken(token);

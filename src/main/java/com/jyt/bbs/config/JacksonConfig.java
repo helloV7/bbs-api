@@ -16,11 +16,12 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+
 @Configuration
 public class JacksonConfig {
     @Bean
-//    @Primary
-//    @ConditionalOnMissingBean(ObjectMapper.class)
+    @Primary
+    @ConditionalOnMissingBean(ObjectMapper.class)
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder)
     {
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();

@@ -1,6 +1,8 @@
 package com.jyt.bbs.dao;
 
 import com.jyt.bbs.model.entity.UserFile;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface UserFileMapper {
@@ -43,4 +45,7 @@ public interface UserFileMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(UserFile record);
+
+
+    UserFile getUserFileByUserIdAndPostId(@Param("userId") Integer userId, @Param("postId") Integer postId);
 }

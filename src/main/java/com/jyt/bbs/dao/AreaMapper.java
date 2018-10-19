@@ -1,6 +1,8 @@
 package com.jyt.bbs.dao;
 
 import com.jyt.bbs.model.entity.Area;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface AreaMapper {
@@ -44,6 +46,6 @@ public interface AreaMapper {
      */
     int updateByPrimaryKey(Area record);
 
-    List<Area> listArea(Integer id);
+    List<Area> listArea(@Param("parentId") Integer id);
 
 }

@@ -37,6 +37,22 @@
       #{toNum,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
+  <insert id="addFloor" parameterType="com.jyt.bbs.model.entity.Floor">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO floor (user_id, post_id, num,
+      to_num, create_time, content
+      )
+    VALUES (#{userId,jdbcType=INTEGER}, #{postId,jdbcType=INTEGER},
+    (SELECT *
+    FROM (
+      SELECT (COUNT(post_id)+1)
+      from floor where post_id = #{postId}
+    ) temp),
+      #{toNum,jdbcType=VARCHAR}, current_date(), #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
   <update id="updateByPrimaryKey" parameterType="com.jyt.bbs.model.entity.Floor">
     <!--
       WARNING - @mbggenerated
@@ -68,4 +84,21 @@
     select id, user_id, post_id, num, to_num, create_time, content
     from floor
   </select>
+    <select id="listFloorByPostIdOrderByDate" resultType="com.jyt.bbs.model.entity.Floor" resultMap="BaseResultMap">
+      SELECT *
+      FROM floor
+      WHERE post_id = #{postId}
+    </select>
+  <select id="getFloorByPostIdAndNum" resultType="com.jyt.bbs.model.entity.Floor">
+    SELECT *
+    FROM floor
+    WHERE post_id = #{postId} AND num = #{num}
+  </select>
+  <select id="getFloorByUserIdAndPostId" resultType="com.jyt.bbs.model.entity.Floor">
+      SELECT id
+      FROM floor
+      WHERE post_id = #{postId} AND user_id = #{userId}
+  </select>
+
+
 </mapper>

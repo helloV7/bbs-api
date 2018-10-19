@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Api(value = "通用控制器")
+@Api(value = "通用控制器",tags = "通用")
 @RestController
 @RequestMapping("/common")
 public class CommonController {

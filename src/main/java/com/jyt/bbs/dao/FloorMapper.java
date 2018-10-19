@@ -1,6 +1,8 @@
 package com.jyt.bbs.dao;
 
 import com.jyt.bbs.model.entity.Floor;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface FloorMapper {
@@ -43,4 +45,12 @@ public interface FloorMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Floor record);
+
+    List<Floor> listFloorByPostIdOrderByDate(@Param("postId") Integer postId);
+
+    int addFloor(Floor floor);
+
+    Floor getFloorByPostIdAndNum(@Param("postId")Integer postId,@Param("num")String num);
+
+    Floor getFloorByUserIdAndPostId(@Param("userId")Integer userId,@Param("postId")Integer postId);
 }

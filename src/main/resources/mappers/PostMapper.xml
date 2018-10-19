@@ -20,6 +20,13 @@
     <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+
+  <resultMap id="PostDetail" type="com.jyt.bbs.model.vo.PostDetail" extends="BaseResultMap">
+  </resultMap>
+
+  <sql id="postThumbData">
+    id, perfect, overhead, user_id, `state`, area_id, create_time, `type`,  title
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbggenerated
@@ -84,4 +91,30 @@
     score, title, file_url, content
     from post
   </select>
+    <select id="listPostByAreaIdOrderByDate" resultType="com.jyt.bbs.model.vo.PostThumb" >
+        SELECT
+          <include refid="postThumbData"></include>
+        FROM post
+        WHERE area_id = #{areaId} AND `state` = 0
+        <if test="date!=null">
+          AND create_time >= #{date}
+        </if>
+        <if test="keyword!=null">
+          AND title LIKE CONCAT("%",#{keyword},"%")
+        </if>
+      ORDER BY overhead DESC
+    </select>
+  <select id="getPostDetail" resultType="com.jyt.bbs.model.vo.PostDetail">
+    SELECT *
+    FROM post
+    WHERE id = #{postId}
+  </select>
+  <select id="listPostThumbByUserId" resultType="com.jyt.bbs.model.vo.PostThumb">
+      SELECT
+      <include refid="postThumbData"></include>
+      FROM post
+      WHERE user_id = #{userId} AND `state` = 0
+      ORDER BY create_time DESC
+  </select>
+
 </mapper>

@@ -43,4 +43,6 @@ public interface AdvertisementMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Advertisement record);
+
+    Advertisement getAdvertisementRand();
 }

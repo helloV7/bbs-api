@@ -85,7 +85,9 @@ public class RedisSessionDao extends EnterpriseCacheSessionDAO {
         if (sessionId == null) {
             return null;
         }
+
         return (Session) redisTemplate.opsForValue().get(getSessionIdKey(String.valueOf(sessionId)));
+
     }
 
     public long getExpireTime() {
