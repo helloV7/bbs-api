@@ -53,6 +53,14 @@
       create_time = #{createTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="setMessageStateToRead">
+    UPDATE message
+    SET `state` = 1
+    WHERE id in
+  <foreach collection="messageIds" index="index" item="item" separator="," open="(" close=")">
+      #{item}
+  </foreach>
+  </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbggenerated
@@ -70,4 +78,19 @@
     select id, from_id, to_id, message, `time`, `state`, `type`, create_time
     from message
   </select>
+    <select id="listUnReadMessage" resultType="com.jyt.bbs.model.entity.Message">
+      select * from message
+      WHERE from_id=#{fromId} AND to_id = #{toId} AND `state`= 0
+    </select>
+  <select id="getUnReadMessageCount" resultType="java.lang.Integer">
+    select COUNT(*) from message
+    WHERE to_id = #{userId} AND `state` = 0
+  </select>
+  <select id="listHistoryMessage" resultType="com.jyt.bbs.model.entity.Message">
+     select * from message
+    WHERE  ( from_id = #{userId} AND to_id=#{friendId}) OR ( from_id = #{friendId} AND to_id=#{userId})
+    AND `state` = 0
+    Order by create_time desc
+  </select>
+
 </mapper>

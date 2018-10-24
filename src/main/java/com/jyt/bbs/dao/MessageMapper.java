@@ -1,6 +1,9 @@
 package com.jyt.bbs.dao;
 
 import com.jyt.bbs.model.entity.Message;
+import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface MessageMapper {
@@ -43,4 +46,12 @@ public interface MessageMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Message record);
+
+    List<Message> listUnReadMessage(@Param("fromId")Integer fromId, @Param("toId")Integer toId);
+
+    int getUnReadMessageCount(@Param("userId")Integer userId);
+
+    List<Message> listHistoryMessage(@Param("userId")Integer userId,@Param("friendId")Integer friendId);
+
+    int setMessageStateToRead(@Param("messageIds")List<Integer> messageIds);
 }
